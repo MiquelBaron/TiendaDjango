@@ -1,45 +1,30 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lista de Productos</title>
-    <!-- Agregar el CDN de Bootstrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body>
-    <div class="container mt-4">
-        <h1 class="mb-5">Lista de Productos</h1>
+{% extends 'base.html' %}
 
-        <!-- Formulario de filtro -->
-        <form method="get" action="{% url 'list' %}" class="mb-4">
-            <div class="form-group d-flex justify-content-between">
-                <!-- Aquí el desplegable de categorías sigue en su lugar -->
-                <label for="category" class="mr-2">Filtrar por categoría:</label>
-                <select name="category" id="category" class="form-control">
-                    <option value="">Selecciona una categoría</option>
-                    {% for category in categories %}
-                        <option value="{{ category.id }}" {% if category.id == selected_category %}selected{% endif %}>
-                            {{ category.name }}
-                        </option>
-                    {% endfor %}
-                </select>
-        
-                <!-- El enlace 'Volver al inicio' se alinea a la derecha -->
-                <a href="{% url 'dashboard' %}" class="btn btn-link ml-3">Volver al inicio</a>
-            </div>
-        
-            <button type="submit" class="btn btn-primary mt-2">Filtrar</button>
-        </form>
-        
-        
+{% block content %}
+<div class="container mt-4">
+    <h1 class="mb-5">Lista de Productos</h1>
 
-        <!-- Mostrar productos -->
-       <!-- Mostrar productos -->
-<div class="container">
+    <!-- Formulario de filtro -->
+    <form method="get" action="{% url 'list' %}" class="mb-4">
+        <div class="form-group d-flex justify-content-between">
+            <label for="category" class="mr-2">Filtrar por categoría:</label>
+            <select name="category" id="category" class="form-control">
+                <option value="">Selecciona una categoría</option>
+                {% for category in categories %}
+                    <option value="{{ category.id }}" {% if category.id == selected_category %}selected{% endif %}>
+                        {{ category.name }}
+                    </option>
+                {% endfor %}
+            </select>
+            
+        </div>
+        <button type="submit" class="btn btn-primary mt-2">Filtrar</button>
+    </form>
+
+    <!-- Mostrar productos -->
     <div class="row">
         {% for product in products %}
-        <div class="col-md-4 mb-4"> <!-- Esta clase indica que la carta ocupa 4 columnas en pantallas medianas o más grandes -->
+        <div class="col-md-4 mb-4">
             <div class="card">
                 <img class="card-img-top" src="..." alt="Card image cap">
                 <div class="card-body">
@@ -53,9 +38,5 @@
         <li class="list-group-item">No hay productos disponibles en esta categoría.</li>
         {% endfor %}
     </div>
-
-
-    <!-- Agregar el script de Bootstrap -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
+</div>
+{% endblock %}

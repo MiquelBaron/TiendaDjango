@@ -1,0 +1,49 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="{% url 'home' %}">Django CRM</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        
+      {% if user.is_authenticated %}
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'list' %}">Products</a>
+        </li>
+        
+        {% if request.path == '/myshop/list/' %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'home' %}">Home</a>
+          </li>
+        {% endif %}
+        
+      {% else %}
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'register' %}">Register</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'home' %}">Login</a>
+        </li>
+      {% endif %}
+      
+      </ul>
+      
+    </div>
+  </div>
+</nav>
+
+<style>
+/* Aplica una transición suave y el efecto de escala a los elementos del menú */
+.navbar-nav .nav-item .nav-link {
+  transition: transform 0.3s ease-in-out; /* Hace la transición suave de la escala */
+}
+
+.navbar-nav .nav-item .nav-link:hover {
+  transform: scale(1.1); /* Aumenta la escala a 1.2 cuando se pasa el cursor */
+}
+</style>
